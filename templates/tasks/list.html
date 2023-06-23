@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block extra_style %}
+ul.tasks {
+  list-style:none;
+  margin: 0;
+  padding: 0;
+}
+ul.tasks li {
+  display: flex;
+  padding: 1rem 0.5rem;
+  background: #f8f8f8;
+}
+ul.tasks li:nth-child(even) {
+  background: #f0f0f0;
+}
+ul.tasks a {
+  color: #333;
+  text-decoration: none;
+}
+ul.tasks a:hover {
+  text-decoration: underline;
+}
+ul.tasks a.button {
+  margin-left: auto;
+  color: #115599;
+}
+ul.tasks a.button:hover {
+  color: #6699aa;
+}
+{% endblock %}
+
+{% block content %}
+
+<ul class="buttons">
+  {% if filter_done is True or filter_done is False %}
+    <li><a href="{% url "tasks:list" %}">Show all</a></li>
+  {% endif %}
+  {% if filter_done is not True %}
+    <li><a href="{% url "tasks:list" %}?done=true">Only show done</a></li>
+  {% endif %}
+  {% if filter_done is not False %}
+  <li><a href="{% url "tasks:list" %}?done=false">Only show not done</a></li>
+  {% endif %}
+</ul>
+
+<ul class="tasks">
+{% for task in tasks %}
+  <li{% if task.done %} class="done"{% endif %}>
+    <a href="{% url "tasks:edit" pk=task.pk %}">{{ task.label }}</a>
+    {% if not task.done %}
+      <a href="{% url "tasks:done" pk=task.pk %}" class="button">Mark as done</a>
+    {% else %}
+      <a href="{% url "tasks:not_done" pk=task.pk %}" class="button">Mark as not done</a>
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>
+
+<ul class="buttons">
+  <li><a href="{% url "tasks:add" %}">Add task</a></li>
+</ul>
+
+{% endblock %}

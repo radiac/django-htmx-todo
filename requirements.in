@@ -1,0 +1,29 @@
+# Dev
+black
+django-debug-toolbar
+ipdb
+ipython
+isort
+pip-tools
+ruff
+
+# Core
+django~=4.2.0
+pillow
+psycopg2-binary
+whitenoise
+
+# Third party
+django-configurations
+
+# Testing
+django-stubs[compatible-mypy]
+mypy~=1.3.0  # pinned for django-stubs
+model_bakery
+pytest
+pytest-cov
+pytest-django
+
+# Deployment
+gunicorn
+sentry-sdk

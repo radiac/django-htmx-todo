@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Tasks</title>
+  <style>
+    body {
+      font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+    }
+
+    article {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    ul.buttons {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      margin: 2rem 0;
+      padding: 0;
+    }
+    ul.buttons a {
+      background: #115599;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+    ul.buttons a:hover {
+      background: #66aaee;
+    }
+    {% block extra_style %}{% endblock %}
+  </style>
+</head>
+<body>
+  <article>
+    <h1>{% block title %}{% endblock %}</h1>
+
+    {% block content %}{% endblock %}
+  </article>
+</body>
+</html>

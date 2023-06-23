@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Task is {% if not task.done %}not{% endif %} done{% endblock %}
+
+{% block content %}
+
+<p>The task is now marked as {% if not task.done %}not{% endif %} done:</p>
+
+<blockquote>
+  {{ task.label }}
+</blockquote>
+
+<ul class="buttons">
+  <li><a href="{% url "tasks:list" %}">Return to tasks</a></li>
+</ul>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+# Configuration for local development
+#
+version: '3'
+
+services:
+  postgres:
+    image: docker.io/postgres:12-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - "../docker-store/db:/db"
+      - "../docker-store/backup:/backup"
+      - ".:/project"
+    environment:
+      PGDATA: /db
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+
+  backend:
+    build:
+      context: ./
+      dockerfile: "./docker/backend/Dockerfile"
+    command: [ "/project/docker/backend/run-dev.sh" ]
+    environment:
+      DJANGO_CONFIGURATION: Dev
+      DJANGO_STORE_PATH: /store
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "8000:8000"
+    volumes:
+      - "./:/project"
+      - "../docker-store/store:/store"
+    depends_on:
+      - postgres
