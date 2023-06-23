@@ -1,0 +1,37 @@
+<ul class="buttons" id="controls" hx-swap-oob="true">
+  {% if filter_done is True or filter_done is False %}
+    <li>
+      <a
+        href="{% url "tasks:list" %}"
+        hx-boost="true"
+        hx-target=".tasks"
+      >Show all</a>
+    </li>
+  {% endif %}
+
+  {% if filter_done is not True %}
+    <li>
+      <a
+        href="{% url "tasks:list" %}?done=true"
+        hx-boost="true"
+        hx-target=".tasks"
+      >Only show done</a>
+    </li>
+  {% endif %}
+
+  {% if filter_done is not False %}
+    <li>
+      <a
+        href="{% url "tasks:list" %}?done=false"
+        hx-boost="true"
+        hx-target=".tasks"
+      >Only show not done</a>
+    </li>
+  {% endif %}
+</ul>
+
+<ul class="tasks">
+{% for task in tasks %}
+  {% include "tasks/partials/list-task.html" %}
+{% endfor %}
+</ul>

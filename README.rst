@@ -118,11 +118,15 @@ Working with the database
 
 To dump from the database:
 
+.. code-block:: bash
+
     docker-compose -f docker-compose.dev.yml exec postgres /project/docker/postgres/dump.sh
 
 The dumped file is in ``../docker-store/backup``
 
 To load the database from a dump (default ``database.dump``):
+
+.. code-block:: bash
 
     docker-compose -f docker-compose.dev.yml exec postgres /project/docker/postgres/restore.sh
 
@@ -158,6 +162,13 @@ Skip checks during commit::
 
 Testing
 =======
+
+Use ``mypy`` to type check:
+
+.. code-block:: bash
+
+  mypy
+
 
 Use ``pytest`` to run the tests on your current installation:
 

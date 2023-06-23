@@ -1,6 +1,13 @@
+{% comment %}
+This form is only rendered for users who don't have htmx. In practice we should merge
+this and the partials/list-form - developers will normally just be using htmx, so as it
+stands there's a high risk this will get forgotten about when the partial list-form is
+made more complicated.
+{% endcomment %}
+
 {% extends "base.html" %}
 
-{% block title %}{% if item %}Edit{% else %}Add{% endif %} task{% endblock %}
+{% block title %}{% if task %}Edit{% else %}Add{% endif %} task{% endblock %}
 
 {% block content %}
 

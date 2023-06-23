@@ -14,3 +14,9 @@ class Task(models.Model):
     done = models.BooleanField(default=False)
 
     objects = TaskQuerySet.as_manager()
+
+    class Meta:
+        ordering = ("pk",)
+
+    def __str__(self):
+        return self.label

@@ -3,6 +3,7 @@
 {% block title %}Tasks{% endblock %}
 
 {% block extra_style %}
+/* Basic task list styling */
 ul.tasks {
   list-style:none;
   margin: 0;
@@ -16,6 +17,13 @@ ul.tasks li {
 ul.tasks li:nth-child(even) {
   background: #f0f0f0;
 }
+
+/* Done tasks have strikethrough */
+ul.tasks li.done .task {
+  text-decoration: line-through;
+}
+
+/* Link and button styling */
 ul.tasks a {
   color: #333;
   text-decoration: none;
@@ -30,37 +38,37 @@ ul.tasks a.button {
 ul.tasks a.button:hover {
   color: #6699aa;
 }
+
+/* Style the task form when we're using HTMX */
+ul.tasks li form {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 2rem;
+}
+ul.tasks li form [type="text"] {
+  margin: 0;
+  flex: 1 1 auto;
+}
+ul.tasks [type="submit"] {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
 {% endblock %}
 
 {% block content %}
 
-<ul class="buttons">
-  {% if filter_done is True or filter_done is False %}
-    <li><a href="{% url "tasks:list" %}">Show all</a></li>
-  {% endif %}
-  {% if filter_done is not True %}
-    <li><a href="{% url "tasks:list" %}?done=true">Only show done</a></li>
-  {% endif %}
-  {% if filter_done is not False %}
-  <li><a href="{% url "tasks:list" %}?done=false">Only show not done</a></li>
-  {% endif %}
-</ul>
+{% include "tasks/partials/list.html" %}
 
-<ul class="tasks">
-{% for task in tasks %}
-  <li{% if task.done %} class="done"{% endif %}>
-    <a href="{% url "tasks:edit" pk=task.pk %}">{{ task.label }}</a>
-    {% if not task.done %}
-      <a href="{% url "tasks:done" pk=task.pk %}" class="button">Mark as done</a>
-    {% else %}
-      <a href="{% url "tasks:not_done" pk=task.pk %}" class="button">Mark as not done</a>
-    {% endif %}
+<ul class="buttons">
+  <li>
+    <a
+      href="{% url "tasks:add" %}"
+      hx-get="{% url "tasks:add" %}"
+      hx-target=".tasks"
+      hx-swap="beforeend"
+    >Add task</a>
   </li>
-{% endfor %}
-</ul>
-
-<ul class="buttons">
-  <li><a href="{% url "tasks:add" %}">Add task</a></li>
 </ul>
 
 {% endblock %}

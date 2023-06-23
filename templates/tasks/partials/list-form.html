@@ -1,0 +1,19 @@
+{% comment %}
+This is the only partial which isn't used by the non-js version of the site; technically
+we could have merged the HTML form, but the differences between them would have
+cluttered that template.
+{% endcomment %}
+
+<li>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.label }}
+    <button
+      type="submit"
+      class="button"
+      hx-post="{% if task %}{% url "tasks:edit" pk=task.pk %}{% else %}{% url "tasks:add" %}{% endif %}"
+      hx-target="closest li"
+      hx-swap="outerHTML"
+    >Save</button>
+  </form>
+</li>

@@ -7,6 +7,7 @@ addopts = "--cov=todo --cov-report=term --cov-report=html"
 testpaths = [
     "tests",
 ]
+DJANGO_SETTINGS_MODULE = "todo.settings"
 DJANGO_CONFIGURATION = "Test"
 
 [tool.coverage.run]
@@ -29,6 +30,7 @@ skip = [".git", "node_modules", ".tox"]
 [tool.mypy]
 follow_imports = "skip"
 ignore_missing_imports = true
+check_untyped_defs = true
 plugins = [
     "./todo/mypy_plugin.py",
 ]

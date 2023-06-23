@@ -1,0 +1,29 @@
+<li {% if task.done %} class="done"{% endif %}>
+  {# Task label doubles as edit; htmx swaps for a form #}
+  <a
+    class="task"
+    href="{% url "tasks:edit" pk=task.pk %}"
+    hx-get="{% url "tasks:edit" pk=task.pk %}"
+    hx-target="closest li"
+    hx-swap="outerHTML"
+  >{{ task.label }}</a>
+
+  {# Status toggles #}
+  {% if not task.done %}
+    <a
+      class="button"
+      href="{% url "tasks:done" pk=task.pk %}"
+      hx-get="{% url "tasks:done" pk=task.pk %}"
+      hx-target="closest li"
+      hx-swap="outerHTML"
+    >Mark as done</a>
+  {% else %}
+    <a
+      class="button"
+      href="{% url "tasks:not_done" pk=task.pk %}"
+      hx-get="{% url "tasks:not_done" pk=task.pk %}"
+      hx-target="closest li"
+      hx-swap="outerHTML"
+    >Mark as not done</a>
+  {% endif %}
+</li>

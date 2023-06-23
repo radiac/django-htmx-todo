@@ -1,11 +1,12 @@
-<!doctype html>
+{% load static %}<!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<title>Tasks</title>
   <style>
-    body {
+    body, [type="submit"] {
       font-family: Charter, 'Bitstream Charter', 'Sitka Text', Cambria, serif;
+      font-size: 1rem;
     }
 
     article {
@@ -20,7 +21,8 @@
       margin: 2rem 0;
       padding: 0;
     }
-    ul.buttons a {
+    ul.buttons a,
+    [type="submit"] {
       background: #115599;
       color: white;
       padding: 0.5rem 1rem;
@@ -28,11 +30,17 @@
       font-weight: bold;
       text-decoration: none;
     }
-    ul.buttons a:hover {
+    ul.buttons a:hover,
+    [type="submit"]:hover {
       background: #66aaee;
+    }
+    [type="submit"] {
+      border: 0;
+      cursor: pointer;
     }
     {% block extra_style %}{% endblock %}
   </style>
+  <script src="{% static "htmx-1.9.2.js" %}" defer="true"></script>
 </head>
 <body>
   <article>
